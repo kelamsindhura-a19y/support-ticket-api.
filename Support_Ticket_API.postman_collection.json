@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "8f8b8c19-1234-4b47-a8bf-support-ticket-api",
+		"name": "Support Ticket Management System API",
+		"description": "Postman collection for Support Ticket Management System (Backend Developer Internship)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Create Ticket (Success)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Alice Johnson\",\n    \"email\": \"alice@example.com\",\n    \"title\": \"Cannot login to user portal\",\n    \"description\": \"I am getting a 500 error when clicking the login button on Chrome.\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/tickets/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Create Ticket (Validation Error - Missing Fields)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/tickets/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Create Ticket (Validation Error - Invalid Email)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Alice Johnson\",\n    \"email\": \"not-a-valid-email\",\n    \"title\": \"Login failure\",\n    \"description\": \"Cannot login.\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/tickets/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. List All Tickets",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/tickets/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Filter Tickets by Status (?status=open)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/tickets/?status=open",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						""
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "open"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Search Tickets (?search=login)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/tickets/?search=login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						""
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "login"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. Retrieve Single Ticket by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/tickets/1/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. Retrieve Nonexistent Ticket (404 Not Found)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/tickets/99999/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						"99999",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9. Full Update (PUT)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Alice Johnson Updated\",\n    \"email\": \"alice.updated@example.com\",\n    \"title\": \"Cannot login to user portal - Under investigation\",\n    \"description\": \"Checked server logs and cleared Chrome cache.\",\n    \"status\": \"in_progress\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/tickets/1/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10. Partial Update (PATCH)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Cannot login to user portal (Urgent priority)\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/tickets/1/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11. Update Status Custom Action (PATCH /update_status/)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"resolved\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/tickets/1/update_status/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						"1",
+						"update_status",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12. Update Status (Validation Error - Invalid Status)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"invalid_status_choice\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/tickets/1/update_status/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						"1",
+						"update_status",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "13. Delete Ticket (DELETE)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/tickets/1/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000"
+		}
+	]
+}
